@@ -1,3 +1,5 @@
 __pycache__
 data
 phase1_batch_processing.log
+.vscode/
+env/

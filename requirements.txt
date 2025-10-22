@@ -1,4 +1,13 @@
-google-play-scraper==1.2.4
-pandas==2.0.3
-numpy==1.24.3
-python-dateutil==2.8.2
+# Phase 1
+google-play-scraper
+panda
+numpy
+python-dateutil
+
+# Phase 2 - Hugging Fce
+transformers
+torch
+accelerate
+sentence-transformers
+chromadb
+scikit-learn
