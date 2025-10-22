@@ -91,21 +91,21 @@ class DailyBatchProcessor:
         
         self._save_processing_status()
     
-    def process_historical_data(self, days_range: int = 60) -> Dict[str, Any]:
+    def process_historical_data(self, days_range: int = 60, reviews_per_day: int = 100) -> Dict[str, Any]:  # CHANGED: Added reviews_per_day
         """
         Main method: Scrape historical data and process as daily batches
         """
-        logger.info(f"Starting historical data processing for last {days_range} days")
+        logger.info(f"Starting historical data processing for last {days_range} days with {reviews_per_day} reviews per day")
         
         # Step 1: Scrape all historical data using the working approach
-        all_reviews_df = self.scraper.scrape_historical_reviews(days_range=days_range)
+        all_reviews_df = self.scraper.scrape_historical_reviews(days_range=days_range, reviews_per_day=reviews_per_day)
         
         if all_reviews_df.empty:
             logger.error("No reviews collected. Exiting.")
             return {'status': 'failed', 'error': 'No reviews collected'}
         
-        # Step 2: Split into daily batches
-        daily_batches = self.scraper.split_into_daily_batches(all_reviews_df)
+        # Step 2: Split into daily batches with exactly 100 reviews per day
+        daily_batches = self.scraper.split_into_daily_batches(all_reviews_df, reviews_per_day=reviews_per_day)
         
         if not daily_batches:
             logger.error("No daily batches created")

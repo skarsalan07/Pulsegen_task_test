@@ -33,9 +33,9 @@ def run_phase1_batch_processing():
         summary = processor.get_processing_summary()
         logger.info(f"Initial Status: {summary}")
         
-        # Process historical data (60 days = 2 months)
-        logger.info("Processing historical data as daily batches for last 2 months...")
-        result = processor.process_historical_data(days_range=60)
+        # Process historical data (60 days = 2 months) with 100 reviews per day
+        logger.info("Processing historical data as daily batches for last 2 months (100 reviews per day)...")
+        result = processor.process_historical_data(days_range=60, reviews_per_day=100)  # CHANGED: Added reviews_per_day
         
         logger.info(f"Processing Result: {result}")
         
@@ -52,6 +52,7 @@ def run_phase1_batch_processing():
             print(f"Data Date Range: {result['date_range']['start']} to {result['date_range']['end']}")
         print(f"Successful Batches: {result.get('successful', 0)}")
         print(f"Failed Batches: {result.get('failed', 0)}")
+        print(f"Reviews per day: 100")
         print(f"{'='*80}")
         
         return result
